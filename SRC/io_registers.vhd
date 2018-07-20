@@ -1,0 +1,426 @@
+--*********************************************************
+--* FILE  : IO_registers.VHD
+--* Author: Jack Fried
+--*
+--* Last Modified: 5/19/2013
+--*  
+--* Description: interface to the TSE UDP IO
+--*		 		               
+--*
+--*
+--*********************************************************
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.std_logic_arith.all;
+USE ieee.std_logic_unsigned.all;
+
+
+--  Entity Declaration
+
+ENTITY IO_registers IS
+
+	PORT
+	(
+		rst             : IN STD_LOGIC;				-- state machine reset
+		clk             : IN STD_LOGIC;
+		Ver_ID		    : IN STD_LOGIC_VECTOR(31 downto 0);	
+		data            : IN STD_LOGIC_VECTOR(31 downto 0);	
+		RD_WR_ADDR_SEL	 : IN std_logic;	
+		WR_address      : IN STD_LOGIC_VECTOR(15 downto 0); 
+		RD_address      : IN STD_LOGIC_VECTOR(15 downto 0); 
+		WR    	 	    : IN STD_LOGIC;				
+		data_out		    : OUT  STD_LOGIC_VECTOR(31 downto 0);		
+		
+		DP_WFM_CLK_A	: IN   STD_LOGIC;		
+		DP_WFM_ADDR_A	: IN   STD_LOGIC_VECTOR(7 downto 0);		
+		DP_WFM_DATA_A 	: OUT  STD_LOGIC_VECTOR(23 downto 0);		
+
+		DP_WFM_CLK_B	: IN   STD_LOGIC;		
+		DP_WFM_ADDR_B	: IN   STD_LOGIC_VECTOR(7 downto 0);		
+		DP_WFM_DATA_B 	: OUT  STD_LOGIC_VECTOR(23 downto 0);		
+
+
+		DP_FPGA_ADDR	: IN   STD_LOGIC_VECTOR(7 downto 0);	
+		DP_FPGA_D		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		DP_FPGA_WREN	: IN   STD_LOGIC;	
+		DP_FPGA_Q		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		
+		reg0_i		: IN  STD_LOGIC_VECTOR(31 downto 0);		
+		reg1_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg2_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg3_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg4_i		: IN  STD_LOGIC_VECTOR(31 downto 0);		
+		reg5_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg6_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg7_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg8_i		: IN  STD_LOGIC_VECTOR(31 downto 0);		
+		reg9_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg10_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg11_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg12_i		: IN  STD_LOGIC_VECTOR(31 downto 0);		
+		reg13_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg14_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg15_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg16_i		: IN  STD_LOGIC_VECTOR(31 downto 0);		
+		reg17_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg18_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg19_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg20_i		: IN  STD_LOGIC_VECTOR(31 downto 0);		
+		reg21_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg22_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg23_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg24_i		: IN  STD_LOGIC_VECTOR(31 downto 0);		
+		reg25_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg26_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg27_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg28_i		: IN  STD_LOGIC_VECTOR(31 downto 0);		
+		reg29_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg30_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg31_i		: IN  STD_LOGIC_VECTOR(31 downto 0);		
+		reg32_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg33_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg34_i		: IN  STD_LOGIC_VECTOR(31 downto 0);		
+		reg35_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg36_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg37_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg38_i		: IN  STD_LOGIC_VECTOR(31 downto 0);		
+		reg39_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg40_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg41_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg42_i		: IN  STD_LOGIC_VECTOR(31 downto 0);	
+		reg43_i		: IN  STD_LOGIC_VECTOR(31 downto 0);
+		reg50_i     : in  std_logic_vector(31 downto 0);
+		
+		reg0_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);		
+		reg1_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg2_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg3_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg4_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);		
+		reg5_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg6_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg7_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg8_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);		
+		reg9_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg10_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg11_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg12_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);		
+		reg13_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg14_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg15_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg16_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);		
+		reg17_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg18_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg19_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg20_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);		
+		reg21_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg22_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg23_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg24_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);		
+		reg25_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg26_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg27_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg28_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);		
+		reg29_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg30_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg31_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);
+		reg40_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);	
+		reg41_o		: OUT  STD_LOGIC_VECTOR(31 downto 0);
+		reg50_o     : Out  std_logic_vector(31 downto 0) --added 0622
+	);
+	
+END IO_registers;
+
+
+ARCHITECTURE behavior OF IO_registers IS
+
+
+
+
+
+
+component DP_WFM_MEM
+	PORT
+	(
+		address_a		: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+		address_b		: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+		clock_a		: IN STD_LOGIC  := '1';
+		clock_b		: IN STD_LOGIC ;
+		data_a		: IN STD_LOGIC_VECTOR (23 DOWNTO 0);
+		data_b		: IN STD_LOGIC_VECTOR (23 DOWNTO 0);
+		wren_a		: IN STD_LOGIC  := '0';
+		wren_b		: IN STD_LOGIC  := '0';
+		q_a		: OUT STD_LOGIC_VECTOR (23 DOWNTO 0);
+		q_b		: OUT STD_LOGIC_VECTOR (23 DOWNTO 0)
+	);
+end component;
+
+
+component EPCQ_DPM
+	PORT
+	(
+		address_a		: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+		address_b		: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+		clock				: IN STD_LOGIC  := '1';
+		data_a			: IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+		data_b			: IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+		wren_a			: IN STD_LOGIC  := '0';
+		wren_b			: IN STD_LOGIC  := '0';
+		q_a				: OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
+		q_b				: OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
+	);
+end component;
+
+
+SIGNAL	DP_ADDR				: STD_LOGIC_VECTOR (7 DOWNTO 0);
+SIGNAL	SCRATCH_PAD			: STD_LOGIC_VECTOR (31 DOWNTO 0);
+SIGNAL	DP_C_data			: STD_LOGIC_VECTOR (31 DOWNTO 0);
+signal	DP_data 				: STD_LOGIC_VECTOR (23 DOWNTO 0);
+SIGNAL	DP_A_Q				: STD_LOGIC_VECTOR (23 DOWNTO 0);
+SIGNAL	DP_B_Q				: STD_LOGIC_VECTOR (23 DOWNTO 0);
+SIGNAL	DP_C_Q				: STD_LOGIC_VECTOR (31 DOWNTO 0);
+SIGNAL	WR_DLY				: STD_LOGIC;
+signal	DP_A_WR				: STD_LOGIC;
+signal	DP_B_WR				: STD_LOGIC;
+signal	DP_C_WR				: STD_LOGIC;
+signal	VERSION	 			: STD_LOGIC_VECTOR (31 DOWNTO 0);  							 
+signal	DATE_O	 			: STD_LOGIC_VECTOR (31 DOWNTO 0);  	 				 
+signal	TIME_O				: STD_LOGIC_VECTOR (31 DOWNTO 0);  	 
+
+
+begin
+
+
+ version_reg_inst : entity work.version_reg
+	PORT MAP
+	(
+        data_out    => VERSION(11 downto 0),
+        Date_s      => DATE_O,
+        Time_s      => TIME_O(23 downto 0)
+	);
+	
+VERSION(31 downto 12)	<=  x"00000";
+TIME_O(31 downto 24)		<= x"00";
+
+	DP_WFM_MEM_inst1 : DP_WFM_MEM
+	PORT MAP
+	(
+	
+	
+		clock_a			=> clk,	
+		address_a		=> DP_ADDR,
+		q_a				=> DP_A_Q,	
+		data_a			=> DP_data,				
+		wren_a			=> DP_A_WR,	
+		clock_b			=>	DP_WFM_CLK_A,
+		address_b		=> DP_WFM_ADDR_A,
+		q_b				=> DP_WFM_DATA_A,
+		data_b			=> x"000000",	
+		wren_b			=> '0'
+
+	);
+
+	
+	DP_WFM_MEM_inst2 : DP_WFM_MEM
+	PORT MAP
+	(	
+		clock_a			=> clk,	
+		address_a		=> DP_ADDR,	
+		q_a				=> DP_B_Q,	
+		data_a			=> DP_data,			
+		wren_a			=> DP_B_WR,	
+		clock_b			=>	DP_WFM_CLK_B,
+		address_b		=> DP_WFM_ADDR_B,
+		q_b				=> DP_WFM_DATA_B,
+		data_b			=> x"000000",		
+		wren_b			=> '0'
+	);
+
+	
+
+	
+EPCQ_DPM_inst : EPCQ_DPM
+	PORT MAP
+	(
+	
+		clock				=> clk,		
+		address_a		=> DP_ADDR,	
+		q_a				=> DP_C_Q,		
+		data_a			=> DP_C_data,		
+		wren_a			=> DP_C_WR,	
+		address_b		=> DP_FPGA_ADDR,
+		q_b				=> DP_FPGA_Q,
+		data_b			=> DP_FPGA_D,
+		wren_b			=> DP_FPGA_WREN
+
+
+	);
+	
+
+DP_ADDR			<= WR_address(7 downto 0) WHEN (WR = '1' or WR_DLY = '1') else
+						RD_address(7 downto 0);					
+
+  data_out		<=	 reg0_i 	when (RD_address(11 downto 0) = x"000")	else
+                   reg1_i 	when (RD_address(11 downto 0) = x"001")	else
+                   reg2_i 	when (RD_address(11 downto 0) = x"002")	else
+                   reg3_i 	when (RD_address(11 downto 0) = x"003")	else
+                   reg4_i 	when (RD_address(11 downto 0) = x"004")	else
+                   reg5_i 	when (RD_address(11 downto 0) = x"005")	else
+                   reg6_i 	when (RD_address(11 downto 0) = x"006")	else
+                   reg7_i 	when (RD_address(11 downto 0) = x"007")	else
+                   reg8_i 	when (RD_address(11 downto 0) = x"008")	else
+                   reg9_i 	when (RD_address(11 downto 0) = x"009")	else
+                   reg10_i	when (RD_address(11 downto 0) = x"00a")	else
+                   reg11_i	when (RD_address(11 downto 0) = x"00b")	else
+                   reg12_i	when (RD_address(11 downto 0) = x"00c")	else
+                   reg13_i	when (RD_address(11 downto 0) = x"00d")	else
+                   reg14_i	when (RD_address(11 downto 0) = x"00e")	else
+                   reg15_i	when (RD_address(11 downto 0) = x"00f")	else
+                   reg16_i	when (RD_address(11 downto 0) = x"010")	else
+                   reg17_i	when (RD_address(11 downto 0) = x"011")	else
+                   reg18_i	when (RD_address(11 downto 0) = x"012")	else
+                   reg19_i	when (RD_address(11 downto 0) = x"013")	else
+                   reg20_i	when (RD_address(11 downto 0) = x"014")	else
+                   reg21_i	when (RD_address(11 downto 0) = x"015")	else
+                   reg22_i	when (RD_address(11 downto 0) = x"016")	else
+                   reg23_i	when (RD_address(11 downto 0) = x"017")	else
+                   reg24_i	when (RD_address(11 downto 0) = x"018")	else
+                   reg25_i	when (RD_address(11 downto 0) = x"019")	else
+                   reg26_i	when (RD_address(11 downto 0) = x"01a")	else
+                   reg27_i	when (RD_address(11 downto 0) = x"01b")	else
+                   reg28_i	when (RD_address(11 downto 0) = x"01c")	else
+                   reg29_i	when (RD_address(11 downto 0) = x"01d")	else
+                   reg30_i	when (RD_address(11 downto 0) = x"01e")	else
+                   reg31_i	when (RD_address(11 downto 0) = x"01f")  else
+                   reg32_i	when (RD_address(11 downto 0) = x"020")	else
+                   reg33_i	when (RD_address(11 downto 0) = x"021")	else
+                   reg34_i	when (RD_address(11 downto 0) = x"022")	else
+                   reg35_i	when (RD_address(11 downto 0) = x"023")	else
+                   reg36_i	when (RD_address(11 downto 0) = x"024")	else
+                   reg37_i	when (RD_address(11 downto 0) = x"025")	else
+                   reg38_i	when (RD_address(11 downto 0) = x"026")	else
+                   reg39_i	when (RD_address(11 downto 0) = x"027")	else
+                   reg40_i	when (RD_address(11 downto 0) = x"028")	else
+                   reg41_i	when (RD_address(11 downto 0) = x"029")  else						 
+                   reg42_i	when (RD_address(11 downto 0) = x"02A")	else
+                   reg43_i	when (RD_address(11 downto 0) = x"02B")  else
+						 reg50_i when (RD_address(11 downto 0) = x"032")  else --added 0622
+						 SCRATCH_PAD	 when (RD_address(11 downto 0) = x"0fe")  else	 
+						 Ver_ID	    	 when (RD_address(11 downto 0) = x"0ff")  else	
+						 VERSION	    	 when (RD_address(11 downto 0) = x"100")  else							 
+						 DATE_O	    	 when (RD_address(11 downto 0) = x"101")  else							 
+						 TIME_O	    	 when (RD_address(11 downto 0) = x"102")  else							 
+						 x"00" & DP_A_Q when (RD_address(11 downto 0)  >= x"200") and (RD_address(11 downto 0)  < x"300") else						 
+						 x"00" & DP_B_Q when (RD_address(11 downto 0)  >= x"300") and (RD_address(11 downto 0)  < x"400") else
+						 DP_C_Q 			 when (RD_address(11 downto 0)  >= x"400") and (RD_address(11 downto 0)  < x"500") else 
+                   X"00000000";
+		
+
+					 
+  process(clk,WR,rst) 
+  begin
+		if (rst = '1') then
+			reg0_o		<= X"00000000";		
+			reg1_o		<= X"00000000";	
+			reg2_o		<= X"00000000";
+			reg3_o		<= X"00000000";
+			reg4_o		<= X"00000000";
+			reg5_o		<= X"00000000";
+			reg6_o		<= X"00000000";	
+			reg7_o		<= X"00000000";	
+			reg8_o		<= X"00000000";	
+			reg9_o		<= X"00000000";	
+			reg10_o		<= X"00000000";
+			reg11_o		<= X"00000000";	
+			reg12_o		<= X"00000000";		
+			reg13_o		<= X"00000000";
+			reg14_o		<= X"00000000";	
+			reg15_o		<= X"00000000";
+			reg16_o		<= X"00000000";		
+			reg17_o		<= X"00000000";	
+			reg18_o		<= X"00000000";
+			reg19_o		<= X"00000000";
+			reg20_o		<= X"00000000";	
+			reg21_o		<= X"0001C5BC";	
+			reg22_o		<= X"00000000";	
+			reg23_o		<= X"00000000";	
+			reg24_o		<= X"00000000";		
+			reg25_o		<= X"00000000";
+			reg26_o		<= X"00000000";
+			reg27_o		<= X"00000000";
+			reg28_o		<= X"00000000";		
+			reg29_o		<= X"00000000";
+			reg30_o		<= X"00000000";
+			reg31_o		<= X"000001FB"; -- EFB
+			reg40_o		<= X"00000000";
+			reg41_o		<= X"00100000";	
+			reg50_o     <= X"0000FFFF"; --new ADDED
+	
+		elsif (clk'event  AND  clk = '1') then
+			reg0_o		<= X"00000000";	
+			DP_A_WR		<= '0';		
+			DP_B_WR		<= '0';
+			DP_C_WR		<= '0';			
+			WR_DLY		<= DP_A_WR or DP_B_WR or DP_C_WR;	
+			DP_data		<= data(23 downto 0);
+			DP_C_data	<= data(31 downto 0);
+			if (WR = '1') and (WR_address >= x"0200") and (WR_address < x"0300") then
+				DP_A_WR		<= '1';
+				WR_DLY		<= '1';	
+			end if;		
+			if (WR = '1') and (WR_address >= x"0300") and (WR_address < x"0400")then
+				DP_B_WR		<= '1';
+				WR_DLY		<= '1';	
+			end if;				
+			if (WR = '1') and (WR_address >= x"0400") and (WR_address < x"0500")then
+				DP_C_WR		<= '1';
+				WR_DLY		<= '1';	
+			end if;				
+						
+			if (WR = '1') then
+				CASE WR_address(11 downto 0) IS
+					when x"000" => 	reg0_o   <= data;
+					when x"001" => 	reg1_o   <= data;	
+					when x"002" => 	reg2_o   <= data;
+					when x"003" => 	reg3_o   <= data;
+					when x"004" => 	reg4_o   <= data;
+					when x"005" => 	reg5_o   <= data;
+					when x"006" => 	reg6_o   <= data;
+					when x"007" => 	reg7_o   <= data;
+					when x"008" => 	reg8_o   <= data;
+					when x"009" => 	reg9_o   <= data;	
+					when x"00A" => 	reg10_o   <= data;
+					when x"00B" => 	reg11_o   <= data;
+					when x"00C" => 	reg12_o   <= data;
+					when x"00D" => 	reg13_o   <= data;
+					when x"00E" => 	reg14_o   <= data;
+					when x"00F" => 	reg15_o   <= data;
+					when x"010" => 	reg16_o   <= data;
+					when x"011" => 	reg17_o   <= data;
+					when x"012" => 	reg18_o   <= data;
+					when x"013" => 	reg19_o   <= data;
+					when x"014" => 	reg20_o   <= data;
+					when x"015" => 	reg21_o   <= data;
+					when x"016" => 	reg22_o   <= data;
+					when x"017" => 	reg23_o  <= data;
+					when x"018" => 	reg24_o  <= data;
+					when x"019" => 	reg25_o  <= data;
+					when x"01A" => 	reg26_o  <= data;
+					when x"01B" => 	reg27_o  <= data;
+					when x"01C" => 	reg28_o  <= data;
+					when x"01D" => 	reg29_o  <= data;
+					when x"01E" => 	reg30_o  <= data;
+					when x"01F" => 	reg31_o  <= data;	
+					when x"028" => 	reg40_o  <= data;
+					when x"029" => 	reg41_o  <= data;		
+					when x"032" =>    reg50_o  <= data; ---added 0622
+					when x"0FE" =>    SCRATCH_PAD <= data;
+					WHEN OTHERS =>  
+				end case;  
+			 end if;
+	end if;
+end process;
+	
+	
+
+END behavior;

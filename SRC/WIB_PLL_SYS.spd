@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file path="WIB_PLL_SYS_sim/WIB_PLL_SYS.vho" type="VHDL" />
+ <topLevel name="WIB_PLL_SYS" />
+ <deviceFamily name="arriav" />
+</simPackage>
