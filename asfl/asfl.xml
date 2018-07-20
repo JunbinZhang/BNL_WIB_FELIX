@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy
+ date="2017.08.29.09:43:30"
+ outputDirectory="C:/share/ProtoDUNE/FPGA/ProtoDUNE_WIB/asfl/">
+ <perimeter>
+  <parameter
+     name="AUTO_GENERATION_ID"
+     type="Integer"
+     defaultValue="0"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_UNIQUE_ID"
+     type="String"
+     defaultValue=""
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_FAMILY"
+     type="String"
+     defaultValue="Arria V"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE"
+     type="String"
+     defaultValue="5AGXFA5H4F35C4"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_SPEEDGRADE"
+     type="String"
+     defaultValue="4_H4"
+     onHdl="0"
+     affectsHdl="1" />
+  <interface name="asmi_access_granted" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port
+       name="asmi_access_granted"
+       direction="input"
+       role="asmi_access_granted"
+       width="1" />
+  </interface>
+  <interface name="asmi_access_request" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port
+       name="asmi_access_request"
+       direction="output"
+       role="asmi_access_request"
+       width="1" />
+  </interface>
+  <interface name="data_in" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port name="data_in" direction="input" role="data_in" width="4" />
+  </interface>
+  <interface name="data_oe" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port name="data_oe" direction="input" role="data_oe" width="4" />
+  </interface>
+  <interface name="data_out" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port name="data_out" direction="output" role="data_out" width="4" />
+  </interface>
+  <interface name="dclk_in" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port name="dclk_in" direction="input" role="dclkin" width="1" />
+  </interface>
+  <interface name="ncso_in" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port name="ncso_in" direction="input" role="scein" width="1" />
+  </interface>
+  <interface name="noe_in" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port name="noe_in" direction="input" role="noe" width="1" />
+  </interface>
+ </perimeter>
+ <entity
+   path=""
+   parameterizationKey="asfl:1.0:AUTO_DEVICE=5AGXFA5H4F35C4,AUTO_DEVICE_FAMILY=Arria V,AUTO_DEVICE_SPEEDGRADE=4_H4,AUTO_GENERATION_ID=1504014209,AUTO_UNIQUE_ID=(altera_serial_flash_loader:16.0:ENABLE_QUAD_SPI_SUPPORT=true,ENABLE_SHARED_ACCESS=ON,ENHANCED_MODE=true,INTENDED_DEVICE_FAMILY=Arria V,NCSO_WIDTH=1,gui_shared_access=true)"
+   instancePathKey="asfl"
+   kind="asfl"
+   version="1.0"
+   name="asfl">
+  <parameter name="AUTO_GENERATION_ID" value="1504014209" />
+  <parameter name="AUTO_DEVICE" value="5AGXFA5H4F35C4" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Arria V" />
+  <parameter name="AUTO_UNIQUE_ID" value="" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="4_H4" />
+  <generatedFiles>
+   <file
+       path="C:/share/ProtoDUNE/FPGA/ProtoDUNE_WIB/asfl/synthesis/asfl.vhd"
+       type="VHDL" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="C:/share/ProtoDUNE/FPGA/ProtoDUNE_WIB/asfl/synthesis/submodules/altera_serial_flash_loader.v"
+       type="VERILOG"
+       attributes="" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file path="C:/share/ProtoDUNE/FPGA/ProtoDUNE_WIB/asfl.qsys" />
+  </sourceFiles>
+  <childSourceFiles>
+   <file
+       path="C:/altera/16.0/ip/altera/altera_serial_flash_loader/altera_serial_flash_loader_hw.tcl" />
+  </childSourceFiles>
+  <messages>
+   <message level="Debug" culprit="asfl">queue size: 0 starting:asfl "asfl"</message>
+   <message level="Progress" culprit="min"></message>
+   <message level="Progress" culprit="max"></message>
+   <message level="Progress" culprit="current"></message>
+   <message level="Debug">Transform: CustomInstructionTransform</message>
+   <message level="Debug">No custom instruction connections, skipping transform </message>
+   <message level="Debug" culprit="merlin_custom_instruction_transform"><![CDATA[After transform: <b>1</b> modules, <b>0</b> connections]]></message>
+   <message level="Debug">Transform: MMTransform</message>
+   <message level="Debug">Transform: InterruptMapperTransform</message>
+   <message level="Debug">Transform: InterruptSyncTransform</message>
+   <message level="Debug">Transform: InterruptFanoutTransform</message>
+   <message level="Debug">Transform: AvalonStreamingTransform</message>
+   <message level="Debug">Transform: ResetAdaptation</message>
+   <message level="Debug" culprit="asfl"><![CDATA["<b>asfl</b>" reuses <b>altera_serial_flash_loader</b> "<b>submodules/altera_serial_flash_loader</b>"]]></message>
+   <message level="Debug" culprit="asfl">queue size: 0 starting:altera_serial_flash_loader "submodules/altera_serial_flash_loader"</message>
+   <message level="Info" culprit="serial_flash_loader_0">generating top-level entity altera_serial_flash_loader</message>
+   <message level="Info" culprit="serial_flash_loader_0"><![CDATA["<b>asfl</b>" instantiated <b>altera_serial_flash_loader</b> "<b>serial_flash_loader_0</b>"]]></message>
+  </messages>
+ </entity>
+ <entity
+   path="submodules/"
+   parameterizationKey="altera_serial_flash_loader:16.0:ENABLE_QUAD_SPI_SUPPORT=true,ENABLE_SHARED_ACCESS=ON,ENHANCED_MODE=true,INTENDED_DEVICE_FAMILY=Arria V,NCSO_WIDTH=1,gui_shared_access=true"
+   instancePathKey="asfl:.:serial_flash_loader_0"
+   kind="altera_serial_flash_loader"
+   version="16.0"
+   name="altera_serial_flash_loader">
+  <parameter name="ENABLE_SHARED_ACCESS" value="ON" />
+  <parameter name="ENABLE_QUAD_SPI_SUPPORT" value="true" />
+  <parameter name="ENHANCED_MODE" value="true" />
+  <parameter name="gui_shared_access" value="true" />
+  <parameter name="NCSO_WIDTH" value="1" />
+  <parameter name="INTENDED_DEVICE_FAMILY" value="Arria V" />
+  <generatedFiles>
+   <file
+       path="C:/share/ProtoDUNE/FPGA/ProtoDUNE_WIB/asfl/synthesis/submodules/altera_serial_flash_loader.v"
+       type="VERILOG"
+       attributes="" />
+  </generatedFiles>
+  <childGeneratedFiles/>
+  <sourceFiles>
+   <file
+       path="C:/altera/16.0/ip/altera/altera_serial_flash_loader/altera_serial_flash_loader_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator instantiator="asfl" as="serial_flash_loader_0" />
+  <messages>
+   <message level="Debug" culprit="asfl">queue size: 0 starting:altera_serial_flash_loader "submodules/altera_serial_flash_loader"</message>
+   <message level="Info" culprit="serial_flash_loader_0">generating top-level entity altera_serial_flash_loader</message>
+   <message level="Info" culprit="serial_flash_loader_0"><![CDATA["<b>asfl</b>" instantiated <b>altera_serial_flash_loader</b> "<b>serial_flash_loader_0</b>"]]></message>
+  </messages>
+ </entity>
+</deploy>

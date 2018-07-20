@@ -1,0 +1,16 @@
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\share\ProtoDUNE\FPGA\ProtoDUNE_WIB\asfl.qsys --synthesis=VHDL --output-directory=C:\share\ProtoDUNE\FPGA\ProtoDUNE_WIB\asfl\synthesis --family="Arria V" --part=5AGXFA5H4F35C4
+Progress: Loading ProtoDUNE_WIB/asfl.qsys
+Progress: Reading input file
+Progress: Adding serial_flash_loader_0 [altera_serial_flash_loader 16.0]
+Progress: Parameterizing module serial_flash_loader_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: asfl: Generating asfl "asfl" for QUARTUS_SYNTH
+Info: serial_flash_loader_0: generating top-level entity altera_serial_flash_loader
+Info: serial_flash_loader_0: "asfl" instantiated altera_serial_flash_loader "serial_flash_loader_0"
+Info: asfl: Done "asfl" with 2 modules, 2 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis
